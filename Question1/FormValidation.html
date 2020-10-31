@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Application</title>
+    <script src="CommonFunctions.js"></script>  
+    <style>
+        body{
+            font-size: 16px;
+            background-color:lightblue;
+            font-family: sans-serif;
+        }
+        h1{
+          text-align: center;
+          text-decoration: underline;  
+        }
+
+        form{
+            width : 450px;
+            padding : 15px;
+            border : 2px solid black;
+            margin: 50px auto 0;
+            border-radius: 5px;  
+        }
+
+        label{
+            display:block;
+            margin-bottom: 5px;
+        }
+
+        input, select{
+            border:1px solid lightgrey;
+            padding:10px;
+            display:block;
+            width:95%;
+            border-radius: 5px;
+        }
+        input.inline{
+            display:inline-block;
+            width: auto;
+            padding-right: 15px;
+        }
+        .row{
+            padding-bottom: 15px;
+        }
+        .err{
+            font-size:0.8em;
+            color :indianred;
+        }
+        button{
+            display:block;
+            width:95%;
+            height: 50px;
+            border-color:black;
+            background-color:lightpink;
+            margin-top: 15px;
+            
+            
+        }
+        label{
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showErr(ele, msg){
+            $get(ele).innerText = msg;
+        }
+        function validate(){
+            //get all the values....
+            let name = document.regForm.name.value;
+            let email = document.regForm.email.value;
+            let mobile = document.regForm.phone.value;
+            let billingDate = document.regForm.billingDate.value;
+            let billAmount = document.regForm.billAmount.value;
+            
+            //name validation
+            if(name == "" || name == null){
+                showErr("errName", "Name is mandatory")
+                return false;
+            }else{
+                showErr("errName", "")
+            }
+            //email validation    
+            if(email == ""){
+                showErr("errEmail", "Email is mandatory")
+                return false;
+            }else{
+                showErr("errEmail", "")
+            }
+            let regEx = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+            if(regEx.test(email) == false){
+                showErr("errEmail", "Email is not in a valid format")
+                return false;
+            } else {
+                showErr("errEmail", "")
+            }
+            //phone no validation
+            if(mobile =="")
+            {
+                showErr("errPhone", "Phone number is mandatory")
+                return false;
+            }
+            else {
+                showErr("errPhone", "")
+            }
+
+            regEx = new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$");
+            if (!regEx.test(mobile))
+            {
+                showErr("errPhone", "Invalid Phone number")
+                return false;
+
+            }
+            else {
+                showErr("errPhone", "")
+            }              
+            
+            if(billingDate=="")
+            {
+                showErr("errbillingDate", "Date is mandatory")
+                return false;     
+               
+            }
+            else
+            {
+                
+                showErr("errbillingDate", "")  
+            }
+            
+            if(billAmount=="")
+            {
+                showErr("errbillAmount", "Billing Amount is mandatory")
+                return false;     
+               
+            }
+            else
+            {
+                
+                showErr("errbillAmount", "")  
+            }                     
+            return true;//After all the validations are done successfully
+        }
+        function showData(){
+            document.getElementById("display").innerHTML = "";
+            let name = document.regForm.name.value;
+            let email = document.regForm.email.value;
+            let mobile = document.regForm.phone.value;
+            let billingDate = document.regForm.billingDate.value;
+            let billAmount = document.regForm.billAmount.value;
+            document.getElementById("display").innerHTML += "Name: " + name + "<br />";
+            document.getElementById("display").innerHTML += "Email: " + email + "<br />";
+            document.getElementById("display").innerHTML += "Phone: " + mobile + "<br />";
+            document.getElementById("display").innerHTML += "country: " + billingDate + "<br />";
+            document.getElementById("display").innerHTML += "gender: " + billAmount + "<br />";
+            
+
+        }
+        function final(){
+            validate();
+            showData();
+        }
+    </script>
+</head>
+<body>
+    <form action="" name="regForm" novalidate="true" onsubmit="return validate()">
+        <h1>User Application Form</h1>
+        <div class="row">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name"/>
+            <div id="errName" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" />
+            <div id="errEmail" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="phone">Telephone Number</label>
+            <input type="text" id="phone" name="phone" />
+            <div id="errPhone" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="billingDate">BillingDate</label>
+            <input type="date" id="billingDate" name="billingDate" />
+            <div id="errbillingDate" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="billAmount">Bill Amount</label>
+            <input type="number" id="billAmount" name="billAmount" />
+            <div id="errbillAmount" class="err"></div>
+        </div>
+        
+        <button class="h">Register</button>
+    </form>
+   
+    <input type="button" value="Display" onclick="final()"/>
+    <div id="display"></div>
+
+    
+    
+</body>
+</html>
