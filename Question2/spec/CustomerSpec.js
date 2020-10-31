@@ -33,7 +33,7 @@ describe('To test class customer', () => {
     it('should check if bill date is not more than one month old', () => {
         const cust = new customer("ABCDE", "happy@gmail.com" , "15-10-2020","8281268966","600");
         let date = cust.billDate;
-        let x = getDate(date);
+        let x = getDate(date)-1;
         let y = (x-1)*60 * 60 * 1000*24*30;
         let z = 60 * 60 * 1000*24*30;
         expect(y).toBeLesserThan(z);        
