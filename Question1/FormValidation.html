@@ -67,7 +67,7 @@
             $get(ele).innerText = msg;
         }
         function validate(){
-            //get all the values....
+            
             let name = document.regForm.name.value;
             let email = document.regForm.email.value;
             let mobile = document.regForm.phone.value;
@@ -115,7 +115,7 @@
             else {
                 showErr("errPhone", "")
             }              
-            
+            //bill date validation
             if(billingDate=="")
             {
                 showErr("errbillingDate", "Date is mandatory")
@@ -127,7 +127,7 @@
                 
                 showErr("errbillingDate", "")  
             }
-            
+            //bill amount validation
             if(billAmount=="")
             {
                 showErr("errbillAmount", "Billing Amount is mandatory")
